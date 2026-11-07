@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datos Bancarios - Javier Zywica</title>
+
 <style>
 body{
     font-family: Arial, sans-serif;
     background:#f4f6f9;
     padding:20px;
 }
+
 .tarjeta{
     background:white;
     border-radius:10px;
@@ -18,39 +20,51 @@ body{
     margin:auto;
     box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
+
 h1{
     color:#0056b3;
     text-align:center;
 }
+
 h2{
     color:#0056b3;
 }
+
 .dato{
     margin:10px 0;
     padding:10px;
     border-left:4px solid #0056b3;
     background:#f8f9fa;
 }
+
 button{
     background:#0056b3;
     color:white;
     border:none;
-    padding:8px 12px;
+    padding:10px 15px;
     border-radius:5px;
     cursor:pointer;
+    font-size:16px;
 }
+
 button:hover{
-    background:#003f80;
+    opacity:0.9;
 }
+
 .whatsapp{
     background:#25D366;
     width:100%;
     padding:15px;
-    font-size:16px;
+    font-size:18px;
 }
-.whatsapp:hover{
-    background:#1da851;
+
+.copiartodo{
+    background:#6f42c1;
+    width:100%;
+    padding:15px;
+    font-size:18px;
 }
+
 #mensaje{
     color:green;
     margin-top:10px;
@@ -58,66 +72,142 @@ button:hover{
 }
 </style>
 </head>
+
 <body>
+
 <div class="tarjeta">
+
 <h1>🏦 DATOS BANCARIOS</h1>
+
 <h2>👤 Titular</h2>
+
 <div class="dato">
 <strong>Javier Edgardo Zywica</strong><br>
 DNI: 23.303.590<br>
 CUIL: 20-23303590-5
 </div>
+
 <h2>💵 Caja de Ahorro en Dólares</h2>
+
 <div class="dato">
 <strong>Alias:</strong><br>
 <span id="aliasDolar">javieryfrancesdolar</span><br><br>
-<button onclick="copiar('aliasDolar')">Copiar Alias</button>
+
+<button onclick="copiar('aliasDolar', this)">
+Copiar Alias
+</button>
 </div>
+
 <div class="dato">
 <strong>CBU:</strong><br>
 <span id="cbuDolar">0170007744000061224489</span><br><br>
-<button onclick="copiar('cbuDolar')">Copiar CBU</button>
+
+<button onclick="copiar('cbuDolar', this)">
+Copiar CBU
+</button>
 </div>
+
 <h2>💰 Caja de Ahorro en Pesos</h2>
+
 <div class="dato">
 <strong>Alias:</strong><br>
 <span id="aliasPesos">javieryfrancespesos</span><br><br>
-<button onclick="copiar('aliasPesos')">Copiar Alias</button>
+
+<button onclick="copiar('aliasPesos', this)">
+Copiar Alias
+</button>
 </div>
+
 <div class="dato">
 <strong>CBU:</strong><br>
 <span id="cbuPesos">017000774000004262789</span><br><br>
-<button onclick="copiar('cbuPesos')">Copiar CBU</button>
+
+<button onclick="copiar('cbuPesos', this)">
+Copiar CBU
+</button>
 </div>
+
 <br>
+
+<button class="copiartodo" onclick="copiarTodo()">
+📋 Copiar TODOS los datos bancarios
+</button>
+
+<br><br>
+
 <button class="whatsapp" onclick="compartirWhatsapp()">
 📲 Compartir por WhatsApp
 </button>
+
 <div id="mensaje"></div>
+
 </div>
+
 <script>
-function copiar(id){
-    let texto=document.getElementById(id).innerText;
+
+function copiar(id, boton){
+
+    let texto = document.getElementById(id).innerText;
+
     navigator.clipboard.writeText(texto);
-    document.getElementById("mensaje").innerHTML="✅ Copiado: "+texto;
+
+    let textoOriginal = boton.innerHTML;
+
+    boton.innerHTML = "✅ Copiado";
+    boton.style.background = "#28a745";
+
+    setTimeout(function(){
+
+        boton.innerHTML = textoOriginal;
+        boton.style.background = "#0056b3";
+
+    },2000);
 }
-function compartirWhatsapp(){
+
+function copiarTodo(){
+
 let texto=`DATOS BANCARIOS
+
 Titular: Javier Edgardo Zywica
 DNI: 23.303.590
 CUIL: 20-23303590-5
-CAJA DE AHORRO EN DÓLARES
+
+CAJA DE AHORRO EN DOLARES
 Alias: javieryfrancesdolar
 CBU: 0170007744000061224489
+
 CAJA DE AHORRO EN PESOS
 Alias: javieryfrancespesos
 CBU: 017000774000004262789`;
+
+navigator.clipboard.writeText(texto);
+
+document.getElementById("mensaje").innerHTML =
+"✅ Todos los datos bancarios fueron copiados.";
+}
+
+function compartirWhatsapp(){
+
+let texto=`DATOS BANCARIOS
+
+Titular: Javier Edgardo Zywica
+
+CAJA DE AHORRO EN DOLARES
+Alias: javieryfrancesdolar
+CBU: 0170007744000061224489
+
+CAJA DE AHORRO EN PESOS
+Alias: javieryfrancespesos
+CBU: 017000774000004262789`;
+
 window.open(
 "https://wa.me/?text="+encodeURIComponent(texto),
 "_blank"
 );
+
 }
+
 </script>
+
 </body>
 </html>
-
